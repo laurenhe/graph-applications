@@ -1,7 +1,7 @@
 public class Vertex<T> {
     
     private T label;
-    private T weight;   // How to <T extends Number>
+    private T weight;   
 
     public Vertex(T label) {
         this(label, null);
@@ -10,6 +10,11 @@ public class Vertex<T> {
     public Vertex(T label, T weight) {
         this.label = label;
         this.weight = weight;
+    }
+
+    // Returns the label of this vertex
+    public T getLabel() {
+        return this.label;
     }
 
     // equals
