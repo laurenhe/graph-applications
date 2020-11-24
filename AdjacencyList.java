@@ -1,77 +1,78 @@
 import java.util.*;
 
 // An AdjacencyList class can implement a graph 
-public class AdjacencyList<V, E> implements GraphInterface<V, E> {
-     private boolean undirected;
-     private Map<Vertex<V>, List<Vertex<V>>> adj;
-     //private Map<> adjWeighted;
+public class AdjacencyList<V, E> implements Graph<V, E> {
+     private boolean isDirected;
+     //private Map<Vertex<V>, List<Vertex<V>>> adj;
+     private Map<Vertex<V>, List<Edge<E, V>>> adj;
 
     // Constructs an empty adjacency list
-    public AdjacencyList(boolean undirected) {
-        //isDirected = undirected;
+    public AdjacencyList(boolean directed) {
+        isDirected = directed;
         adj = new HashMap<>();
-        //adjWeighted = new HashMap<>();
+    }
+
+    // Adds given vertex to graph
+    public void addVertex(Vertex<V> vertex){
+        if (!adj.keySet().contains(vertex)) {
+            adj.put(vertex, new LinkedList<Edge<E, V>>());
+        }
     }
 
     // Adds given edge to graph between two existing vertices
-    public void addEdge(Vertex<T> source, Vertex<T> destination) {
+    public void addEdge(Vertex<V> source, Vertex<V> destination) {
         if (!adj.containsKey(source)) {
             addVertex(source);
         }
-        adj.get(source).add(destination);
-        if (undirected == true) {
-            if (!adj.containsKey(destination)) {
-                addVertex(destination);
-            }
-            adj.get(destination).add(source);
+        adj.get(source).add(new Edge<E, V>(source, destination));
+        if (!adj.containsKey(destination)) {
+            addVertex(destination);
+        }
+        if (isDirected == false) {
+            adj.get(destination).add(new Edge<E, V>(destination, source));
         }
     }
 
-    private class Vertex<V> {
-        private V label;
-        private V weight;   
-
-        public Vertex(V label) {
-            this(label, null);
-        }
-
-        public Vertex(V label, V weight) {
-            this.label = label;
-            this.weight = weight;
-        }
-
-        // Returns the label of this vertex
-        public V getLabel() {
-            return this.label;
-        }
-
-        // equals
-        // hashCode
-    }
-
-    private class Edge<E> {
-        private E label;
-        private E weight;
-        private Vertex<V> u;
-        private Vertex<V> v;
-
-        public Edge(E label) {
-            this(label, null, null, null);
-        }
-
-        public Edge(E label, E weight, Vertex<V> u, Vertex<V> v) {
-            this.label = label;
-            this.weight = weight;
-            this.u = u;
-            this.v = v;
-        }
-
-        // Returns the label of this edge
-        public E getLabel() {
-            return this.label;
+    // Removes given vertex from graph
+    public void removeVertex(Vertex<V> vertex) {
+        if (adj.containsKey(vertex)) {
+            adj.remove(vertex);
         }
     }
 
-    // equals
-    // hashCode
+    // Removes given edge from graph
+    public void removeEdge(Vertex<V> source, Vertex<V> destination) {
+        adj.get(source).remove(destination);
+        if (isDirected == false) {
+            adj.get(destination).remove(source);
+        }
+    }
+
+    // Checks if given vertex is in graph
+    // Returns true if found and false otherwise
+    public boolean containsVertex(Vertex<V> vertex) {
+        if (adj.containsKey(vertex)) {
+            return true;
+        }
+        return false;
+    }
+
+    // Checks if given edge is in graph
+    // Returns true if found and false otherwise
+    public boolean containsEdge(Vertex<V> source, Vertex<V> destination) {
+        if (adj.get(source).contains(destination)) {
+            return true;   
+        }
+        return false;
+    }
+
+    // Returns a string representation of the graph/adjacency list
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (Vertex<V> key : adj.keySet()) {
+            s.append(key.getLabel().toString() + ": [" + adj.get(key).toString() + "]");
+            s.append("\n");
+        }
+        return (s.toString());
+    }
 }
