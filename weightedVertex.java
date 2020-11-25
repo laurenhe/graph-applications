@@ -1,5 +1,5 @@
 // A weighted vertex of an adjacency list representation of a graph
-public class weightedVertex<W extends Number> extends Vertex<V> {
+public class weightedVertex<W, V> extends Vertex<V> {
     private W weight;
 
     // post : Constructs a vertex with given label and given weight

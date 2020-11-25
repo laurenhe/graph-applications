@@ -70,7 +70,7 @@ public class AdjacencyList<V, E> implements Graph<V, E> {
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Vertex<V> key : adj.keySet()) {
-            s.append(key.getLabel().toString() + ": [" + adj.get(key).toString() + "]");
+            s.append(key.toString() + ": " + adj.get(key).toString());
             s.append("\n");
         }
         return (s.toString());

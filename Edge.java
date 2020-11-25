@@ -28,6 +28,10 @@ public class Edge<E, V> {
 
     // Returns a string representation of an edge
     public String toString() {
-        return "[source: " + this.u + ", dest: " + this.v + ", label/weight: " + this.labelOrWeight + "]";
+        if (this.labelOrWeight == null) {
+            return "{source: " + this.u + ", dest: " + this.v + "}";
+        } else {
+            return "{source: " + this.u + ", dest: " + this.v + ", label/weight: " + this.labelOrWeight + "}";
+        }
     }
 }
