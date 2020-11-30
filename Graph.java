@@ -1,6 +1,9 @@
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public interface Graph<V, E> {
+
+    Map<Vertex<V>, List<Edge<E, V>>> getAdj();
 
     void addEdge(Vertex<V> source, Vertex<V> destination);
 

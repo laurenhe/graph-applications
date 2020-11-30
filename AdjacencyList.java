@@ -3,8 +3,12 @@ import java.util.*;
 // An AdjacencyList class can implement a graph 
 public class AdjacencyList<V, E> implements Graph<V, E> {
      private boolean isDirected;
-     //private Map<Vertex<V>, List<Vertex<V>>> adj;
      private Map<Vertex<V>, List<Edge<E, V>>> adj;
+
+    // Returns adjacency list
+    public Map<Vertex<V>, List<Edge<E, V>>> getAdj() {
+        return adj;
+    }
 
     // Constructs an empty adjacency list
     public AdjacencyList(boolean directed) {
@@ -14,8 +18,8 @@ public class AdjacencyList<V, E> implements Graph<V, E> {
 
     // Adds given vertex to graph
     public void addVertex(Vertex<V> vertex){
-        if (!adj.keySet().contains(vertex)) {
-            adj.put(vertex, new LinkedList<Edge<E, V>>());
+        if (!adj.containsKey(vertex)) {
+            adj.put(vertex, new LinkedList<>());
         }
     }
 
@@ -24,20 +28,18 @@ public class AdjacencyList<V, E> implements Graph<V, E> {
         if (!adj.containsKey(source)) {
             addVertex(source);
         }
-        adj.get(source).add(new Edge<E, V>(source, destination));
+        adj.get(source).add(new Edge<E, V>(source, destination, null));
         if (!adj.containsKey(destination)) {
             addVertex(destination);
         }
         if (isDirected == false) {
-            adj.get(destination).add(new Edge<E, V>(destination, source));
+            adj.get(destination).add(new Edge<E, V>(destination, source, null));
         }
     }
 
     // Removes given vertex from graph
     public void removeVertex(Vertex<V> vertex) {
-        if (adj.containsKey(vertex)) {
-            adj.remove(vertex);
-        }
+        adj.remove(vertex);
     }
 
     // Removes given edge from graph

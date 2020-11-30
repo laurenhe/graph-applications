@@ -1,29 +1,25 @@
 // An edge of an adjacency list representation of a graph
 public class Edge<E, V> {
-    private E labelOrWeight;    
     private Vertex<V> u;
     private Vertex<V> v;
+    private E labelOrWeight;
 
-    // post : Constructs an edge with given label or weight
-    public Edge(E labelOrWeight) {
-        this(labelOrWeight, null, null);
-    }
-
+    /*
     // post : Constructs an edge with given source and destination nodes
     public Edge(Vertex<V> u, Vertex<V> v) {
         this(null, u, v);
-    }
+    } */
 
     // post : Constructs an edge with given label or weight and given source and destination nodes
-    public Edge(E labelOrWeight, Vertex<V> u, Vertex<V> v) {
-        this.labelOrWeight = labelOrWeight;
+    public Edge(Vertex<V> u, Vertex<V> v, E labelOrWeight) {
         this.u = u;
         this.v = v;
+        this.labelOrWeight = labelOrWeight;
     }
 
-    // Returns the label of this edge
-    public E getLabelOrWeight() {
-        return this.labelOrWeight;
+    // Returns destination vertex
+    public Vertex<V> getV() {
+        return v;
     }
 
     // Returns a string representation of an edge
@@ -33,5 +29,15 @@ public class Edge<E, V> {
         } else {
             return "{source: " + this.u + ", dest: " + this.v + ", label/weight: " + this.labelOrWeight + "}";
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }
