@@ -1,5 +1,5 @@
 // An edge of an adjacency list representation of a graph
-public class Edge<E, V> {
+public class Edge<V, E> {
     private Vertex<V> u;
     private Vertex<V> v;
     private E labelOrWeight;

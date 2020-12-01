@@ -5,6 +5,8 @@ public class Vertex<V> {
     private V label;
     private Vertex<V> predecessor;
     private Double distFromSource;
+    private int discoveredTimestamp;
+    private int finishedTimestamp;
 
     // post : Constructs a vertex with given label
     public Vertex (V label) {
@@ -12,7 +14,7 @@ public class Vertex<V> {
     }
 
     // post : Constructs a vertex with given label
-    public Vertex (V label, Vertex<V> pi, Double distFromSource) {
+    public Vertex (V label, Vertex<V> predecessor, Double distFromSource) {
         this.label = label;
         this.predecessor = null;
         this.distFromSource = Double.POSITIVE_INFINITY;
@@ -26,12 +28,28 @@ public class Vertex<V> {
         return distFromSource;
     }
 
+    public int getDiscoveredTimestamp() {
+        return discoveredTimestamp;
+    }
+
+    public int getFinishedTimestamp() {
+        return finishedTimestamp;
+    }
+
     public void setPredecessor(Vertex<V> predecessor) {
         this.predecessor = predecessor;
     }
 
     public void setDistFromSource(Double distFromSource) {
         this.distFromSource = distFromSource;
+    }
+
+    public void setDiscoveredTimestamp(int discoveredTimestamp) {
+        this.discoveredTimestamp = discoveredTimestamp;
+    }
+
+    public void setFinishedTimestamp(int finishedTimestamp) {
+        this.finishedTimestamp = finishedTimestamp;
     }
 
     // Returns the string representation of this vertex

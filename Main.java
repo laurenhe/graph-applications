@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Graph<Integer, String> g = new AdjacencyList<>(false);
         Vertex start = new Vertex(1);
+        Vertex v = new Vertex(10);
         g.addEdge(start, new Vertex(2));
         g.addEdge(start, new Vertex(3));
         g.addEdge(new Vertex(2), new Vertex(6));
@@ -13,10 +14,17 @@ public class Main {
         g.addEdge(new Vertex(6), new Vertex(7));
         g.addEdge(new Vertex(7), new Vertex(8));
         g.addEdge(new Vertex(7), new Vertex(9));
-        g.addEdge(new Vertex(9), new Vertex(10));
+        g.addEdge(new Vertex(9), v);
         System.out.println(g.toString());
         GraphAlgorithms algorithms = new GraphAlgorithms();
         algorithms.BFS(g, start);
+        algorithms.shortestPath(g, start);
+        System.out.println(v.getDistFromSource());
+        algorithms.predecessorSubgraphBFS(g, start, v);
+        System.out.println();
+        System.out.println(algorithms.DFS(g));
+
+        /*
         Graph<Integer, String> hex = new AdjacencyList<>(false);
         hex.addEdge(new Vertex(1), new Vertex(3));
         hex.addEdge(new Vertex(1), new Vertex(4));
@@ -54,6 +62,7 @@ public class Main {
         Graph<Integer, Integer> ursaMajor = new AdjacencyList<>(false);
         Graph<Integer, Integer> ursaMinor = new AdjacencyList<>(false);
         Graph<Integer, Integer> libra = new AdjacencyList<>(false);
+        */
     }
 }
 

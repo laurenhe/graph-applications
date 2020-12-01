@@ -3,7 +3,7 @@ import java.util.Map;
 
 public interface Graph<V, E> {
 
-    Map<Vertex<V>, List<Edge<E, V>>> getAdj();
+    Map<Vertex<V>, List<Edge<V, E>>> getAdj();
 
     void addEdge(Vertex<V> source, Vertex<V> destination);
 

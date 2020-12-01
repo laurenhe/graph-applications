@@ -2,46 +2,90 @@ import java.util.*;
 
 public class GraphAlgorithms {
 
+    public static int time;
+
     // Performs breadth-first search
     public static <V, E> void BFS(Graph<V, E> g, Vertex<V> s) {
-        Queue<Vertex<V>> level = new LinkedList<>();
-        Set<Vertex<V>> visited = new HashSet<>();
-        level.add(s);
-        visited.add(s);
-        while (!level.isEmpty()) {
-            Vertex<V> u = level.remove();
-            for (Edge<E, V> e : g.getAdj().get(u)) {
+        Queue<Vertex<V>> frontier = new LinkedList<>();
+        Set<Vertex<V>> discovered = new HashSet<>();
+        frontier.add(s);
+        discovered.add(s);
+        while (!frontier.isEmpty()) {
+            Vertex<V> u = frontier.remove();
+            for (Edge<V, E> e : g.getAdj().get(u)) {
                 Vertex<V> v = e.getV();
-                if (!visited.contains(v)) {
-                    level.add(v);
-                    visited.add(v);
+                if (!discovered.contains(v)) {
+                    frontier.add(v);
+                    discovered.add(v);
                 }
             }
         }
     }
 
+    // Finds shortest path from source to each vertex in graph
     public static <V, E> void shortestPath(Graph<V, E> g, Vertex<V> s) {
         s.setPredecessor(null);
         s.setDistFromSource((double) 0);
-        Queue<Vertex<V>> level = new LinkedList<>();
-        Set<Vertex<V>> visited = new HashSet<>();
-        level.add(s);
-        visited.add(s);
-        while (!level.isEmpty()) {
-            Vertex<V> u = level.remove();
-            for (Edge<E, V> e : g.getAdj().get(u)) {
+        Queue<Vertex<V>> frontier = new LinkedList<>();
+        Set<Vertex<V>> discovered = new HashSet<>();
+        frontier.add(s);
+        discovered.add(s);
+        while (!frontier.isEmpty()) {
+            Vertex<V> u = frontier.remove();
+            for (Edge<V, E> e : g.getAdj().get(u)) {
                 Vertex<V> v = e.getV();
-                if (!visited.contains(v)) {
+                if (!discovered.contains(v)) {
                     v.setPredecessor(u);
                     v.setDistFromSource(u.getDistFromSource() + 1);
-                    level.add(v);
-                    visited.add(v);
+                    frontier.add(v);
+                    discovered.add(v);
                 }
             }
         }
     }
 
-    public static <V, E> void DFS(Graph<V, E> g) {
-        throw new UnsupportedOperationException("not implemented yet");
+    // Prints breadth-first tree
+    public static <V, E> void predecessorSubgraphBFS(Graph<V, E> g, Vertex<V> s, Vertex<V> v) {
+        if (s == v) {
+            System.out.print(s);
+        } else if (v.getPredecessor() == null) {
+            System.out.println("There is no path from s to v.");
+        } else {
+            predecessorSubgraphBFS(g, s, v.getPredecessor());
+            System.out.print(" -> " + v);
+        }
     }
+
+    // Performs top-level depth-first search iterating over the choices of vertex u
+    public static <V,E> Map<Vertex<V>,Edge<V, E>> DFS(Graph<V, E> g) {
+        Set<Vertex<V>> discovered = new HashSet<>();
+        Map<Vertex<V>, Edge<V, E>> forest = new HashMap<>();
+        time = 0;
+        for (Vertex<V> u : g.getAdj().keySet()) {
+            if (!discovered.contains(u)) {
+                DFS(g, u, discovered, forest);
+            }
+        }
+        return forest;
+    }
+
+    // Performs depth-first search iterating over outgoing edges from vertex u
+    private static <V, E> void DFS(Graph<V, E> g, Vertex<V> u, Set<Vertex<V>> discovered, Map<Vertex<V>,Edge<V, E>> forest) {
+        discovered.add(u);
+        time += 1;
+        u.setDiscoveredTimestamp(time);
+        for (Edge<V, E> e : g.getAdj().get(u)) {
+            Vertex<V> v = e.getV();
+            if (!discovered.contains(v)) {
+               forest.put(v, e);
+               DFS(g, v, discovered, forest);
+            }
+        }
+        time += 1;
+        u.setFinishedTimestamp(time);
+    }
+
+    // strongly connected components
+    // MST
+    // Kruskal's
 }

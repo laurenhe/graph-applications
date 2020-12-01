@@ -3,10 +3,10 @@ import java.util.*;
 // An AdjacencyList class can implement a graph 
 public class AdjacencyList<V, E> implements Graph<V, E> {
      private boolean isDirected;
-     private Map<Vertex<V>, List<Edge<E, V>>> adj;
+     private Map<Vertex<V>, List<Edge<V, E>>> adj;
 
     // Returns adjacency list
-    public Map<Vertex<V>, List<Edge<E, V>>> getAdj() {
+    public Map<Vertex<V>, List<Edge<V, E>>> getAdj() {
         return adj;
     }
 
@@ -28,12 +28,12 @@ public class AdjacencyList<V, E> implements Graph<V, E> {
         if (!adj.containsKey(source)) {
             addVertex(source);
         }
-        adj.get(source).add(new Edge<E, V>(source, destination, null));
+        adj.get(source).add(new Edge<V, E>(source, destination, null));
         if (!adj.containsKey(destination)) {
             addVertex(destination);
         }
         if (isDirected == false) {
-            adj.get(destination).add(new Edge<E, V>(destination, source, null));
+            adj.get(destination).add(new Edge<V, E>(destination, source, null));
         }
     }
 
