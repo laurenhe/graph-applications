@@ -2,7 +2,7 @@ import java.util.*;
 
 public class GraphAlgorithms {
 
-    public static int time;
+    private static int time;
 
     // Performs breadth-first search
     public static <V, E> void BFS(Graph<V, E> g, Vertex<V> s) {
@@ -83,6 +83,13 @@ public class GraphAlgorithms {
         }
         time += 1;
         u.setFinishedTimestamp(time);
+    }
+
+    // Prints discovered and finished timestamps from depth-first search for each vertex in graph
+    public static <V, E> void startFinishTimesDFS(Graph<V, E> g) {
+        for (Vertex<V> u : g.getAdj().keySet()) {
+            System.out.println(u + ": " + u.getDiscoveredTimestamp() + ", " + u.getFinishedTimestamp());
+        }
     }
 
     // strongly connected components
