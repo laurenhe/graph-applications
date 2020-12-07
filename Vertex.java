@@ -2,7 +2,8 @@ import java.util.*;
 
 // A vertex of an adjacency list representation of a graph
 public class Vertex<V> {
-    private V label;
+
+    private final V label;
     private Vertex<V> predecessor;
     private Double distFromSource;
     private int discoveredTimestamp;

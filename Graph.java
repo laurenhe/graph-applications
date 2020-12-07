@@ -1,11 +1,12 @@
-import java.util.List;
-import java.util.Map;
-
 public interface Graph<V, E> {
 
-    Map<Vertex<V>, List<Edge<V, E>>> getAdj();
+    Iterable<Vertex<V>> vertices();
 
-    void addEdge(Vertex<V> source, Vertex<V> destination);
+    Iterable<Edge<V, E>> neighbors(Vertex<V> v);
+
+    void addEdge(Vertex<V> source, Vertex<V> destination, E label, Double weight);
+
+    void addVertex(Vertex<V> vertex);
 
     void removeVertex(Vertex<V> vertex);
 

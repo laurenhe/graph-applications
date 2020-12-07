@@ -11,8 +11,8 @@ public class GraphAlgorithms {
         frontier.add(s);
         discovered.add(s);
         while (!frontier.isEmpty()) {
-            Vertex<V> u = frontier.remove();
-            for (Edge<V, E> e : g.getAdj().get(u)) {
+            frontier.remove();
+            for (Edge<V, E> e : g.neighbors(s)) {
                 Vertex<V> v = e.getV();
                 if (!discovered.contains(v)) {
                     frontier.add(v);
@@ -32,7 +32,7 @@ public class GraphAlgorithms {
         discovered.add(s);
         while (!frontier.isEmpty()) {
             Vertex<V> u = frontier.remove();
-            for (Edge<V, E> e : g.getAdj().get(u)) {
+            for (Edge<V, E> e : g.neighbors(u)) {
                 Vertex<V> v = e.getV();
                 if (!discovered.contains(v)) {
                     v.setPredecessor(u);
@@ -61,7 +61,7 @@ public class GraphAlgorithms {
         Set<Vertex<V>> discovered = new HashSet<>();
         Map<Vertex<V>, Edge<V, E>> forest = new HashMap<>();
         time = 0;
-        for (Vertex<V> u : g.getAdj().keySet()) {
+        for (Vertex<V> u : g.vertices()) {
             if (!discovered.contains(u)) {
                 DFS(g, u, discovered, forest);
             }
@@ -74,7 +74,7 @@ public class GraphAlgorithms {
         discovered.add(u);
         time += 1;
         u.setDiscoveredTimestamp(time);
-        for (Edge<V, E> e : g.getAdj().get(u)) {
+        for (Edge<V, E> e : g.neighbors(u)) {
             Vertex<V> v = e.getV();
             if (!discovered.contains(v)) {
                forest.put(v, e);
@@ -87,12 +87,41 @@ public class GraphAlgorithms {
 
     // Prints discovered and finished timestamps from depth-first search for each vertex in graph
     public static <V, E> void startFinishTimesDFS(Graph<V, E> g) {
-        for (Vertex<V> u : g.getAdj().keySet()) {
+        for (Vertex<V> u : g.vertices()) {
             System.out.println(u + ": " + u.getDiscoveredTimestamp() + ", " + u.getFinishedTimestamp());
         }
     }
 
-    // strongly connected components
-    // MST
-    // Kruskal's
+    /* strongly connected components
+    // Call DFS(G)
+    // Compute G transpose
+    // call DFS(GT) consider vertices in order of decreasing u.f
+    // output vertices in each tree as separate strongly connected component
+    public static<V, E> void stronglyConnectedComponents(Graph<V, E> g) {
+        DFS(g);
+        Graph<V, E> gt = graphTranspose(g);
+    } */
+
+    // Computes the transpose of given graph
+    public static<V, E> void graphTranspose(Graph<V, E> g) {
+        throw new UnsupportedOperationException("not implemented yet");
+    }
+
+    /*
+    // Performs Kruskal's algorithm on given graph
+    public static <V, E> Set<Edge<V, E>> kruskalMST(Graph<V, E> g) {
+        Set<Edge<V, E>> A = new HashSet<>();
+        for (Vertex<V> v : g.vertices()) {
+            makeSet(v);
+        }
+        Collections.sort(g.edges());
+        for (Edge<V, E> (u, v) : g.edges()) {
+            if (findSet(u) != findSet(v)) {
+                A.add((u, v));
+                union(u, v);
+            }
+        }
+        return A;
+    }
+    */
 }
