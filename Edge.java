@@ -1,17 +1,12 @@
 import java.util.*;
 
 // An edge of an adjacency list representation of a graph
-public class Edge<V, E>{
+public class Edge<V, E> implements Comparable<Edge<V, E>>{
 
     private Vertex<V> u;
     private Vertex<V> v;
     private E label;
     private Double weight;
-
-    // post : Constructs an edge with given source and destination nodes
-    public Edge(Vertex<V> u, Vertex<V> v) {
-        this(u, v, null, null);
-    }
 
     // post : Constructs an edge with given label or weight and given source and destination nodes
     public Edge(Vertex<V> u, Vertex<V> v, E label, Double weight) {
@@ -19,6 +14,11 @@ public class Edge<V, E>{
         this.v = v;
         this.label = label;
         this.weight = weight;
+    }
+
+    // Returns destination vertex
+    public Vertex<V> getU() {
+        return u;
     }
 
     // Returns destination vertex

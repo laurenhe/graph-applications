@@ -1,6 +1,10 @@
+import java.util.Set;
+
 public interface Graph<V, E> {
 
     Iterable<Vertex<V>> vertices();
+
+    Set<Edge<V, E>> edges();
 
     Iterable<Edge<V, E>> neighbors(Vertex<V> v);
 

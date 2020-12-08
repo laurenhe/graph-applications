@@ -17,6 +17,15 @@ public class AdjacencyList<V, E> implements Graph<V, E> {
         return new HashSet<>(adj.keySet());
     }
 
+    // Returns a set containing all the edges of the given graph sorted in ascending order by weight
+    public Set<Edge<V, E>> edges() {
+        Set<Edge<V, E>> e = new TreeSet<>();
+        for (List<Edge<V, E>> value : adj.values()) {
+            e.addAll(value);
+        }
+        return e;
+    }
+
     // Returns an iterable collection containing all the edges of a vertex
     public Iterable<Edge<V, E>> neighbors(Vertex<V> v) {
         return new HashSet<>(adj.get(v));

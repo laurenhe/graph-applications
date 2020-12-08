@@ -10,12 +10,7 @@ public class Vertex<V> {
     private int finishedTimestamp;
 
     // post : Constructs a vertex with given label
-    public Vertex (V label) {
-        this(label, null, null);
-    }
-
-    // post : Constructs a vertex with given label
-    public Vertex (V label, Vertex<V> predecessor, Double distFromSource) {
+    public Vertex(V label) {
         this.label = label;
         this.predecessor = null;
         this.distFromSource = Double.POSITIVE_INFINITY;

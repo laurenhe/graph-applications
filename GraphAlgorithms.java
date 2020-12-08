@@ -45,13 +45,13 @@ public class GraphAlgorithms {
     }
 
     // Prints breadth-first tree
-    public static <V, E> void predecessorSubgraphBFS(Graph<V, E> g, Vertex<V> s, Vertex<V> v) {
+    public static <V> void predecessorSubgraphBFS(Vertex<V> s, Vertex<V> v) {
         if (s == v) {
             System.out.print(s);
         } else if (v.getPredecessor() == null) {
             System.out.println("There is no path from s to v.");
         } else {
-            predecessorSubgraphBFS(g, s, v.getPredecessor());
+            predecessorSubgraphBFS(s, v.getPredecessor());
             System.out.print(" -> " + v);
         }
     }
@@ -107,21 +107,24 @@ public class GraphAlgorithms {
         throw new UnsupportedOperationException("not implemented yet");
     }
 
-    /*
+    /* Implementation of connected-components algorithm - representations of graph and disjoint-set data structure would need
+    * to reference each other
+    * object representing a vertex would contain a pointer to the corresponding disjoint-set object and vice versa */
+
+
     // Performs Kruskal's algorithm on given graph
     public static <V, E> Set<Edge<V, E>> kruskalMST(Graph<V, E> g) {
         Set<Edge<V, E>> A = new HashSet<>();
+        DisjointSet<V> s = new DisjointSet<>();
         for (Vertex<V> v : g.vertices()) {
-            makeSet(v);
+            s.makeSet(v);
         }
-        Collections.sort(g.edges());
-        for (Edge<V, E> (u, v) : g.edges()) {
-            if (findSet(u) != findSet(v)) {
-                A.add((u, v));
-                union(u, v);
+        for (Edge<V, E> edge : g.edges()) {
+            if (s.findSet(edge.getU()) != s.findSet(edge.getV())) {
+                A.add(edge);
+                s.union(edge.getU(), edge.getV());
             }
         }
         return A;
     }
-    */
 }

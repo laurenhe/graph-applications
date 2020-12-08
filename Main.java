@@ -26,7 +26,7 @@ public class Main {
         GraphAlgorithms.BFS(g, start);
         GraphAlgorithms.shortestPath(g, start);
         System.out.println(ten.getDistFromSource());
-        GraphAlgorithms.predecessorSubgraphBFS(g, start, ten);
+        GraphAlgorithms.predecessorSubgraphBFS(start, ten);
         System.out.println();
         System.out.println(GraphAlgorithms.DFS(g));
         GraphAlgorithms.startFinishTimesDFS(g);
@@ -115,6 +115,68 @@ public class Main {
         Vertex<String> star8 = new Vertex<>("GJ 682");
         Vertex<String> star9 = new Vertex<>("HD 20794");
         stars.addEdge(star0, star1, null, (Double) 4.2);
+        stars.addEdge(star0, star2, null, (Double) 11.9);
+        stars.addEdge(star0, star3, null, (Double) 12.8);
+        stars.addEdge(star0, star4, null, (Double) 14.0);
+        stars.addEdge(star0, star5, null, (Double) 14.7);
+        stars.addEdge(star0, star6, null, (Double) 15.3);
+        stars.addEdge(star0, star7, null, (Double) 16.1);
+        stars.addEdge(star0, star8, null, (Double) 16.6);
+        stars.addEdge(star0, star9, null, (Double) 19.8);
+        stars.addEdge(star1, star2, null, (Double) 12.6);
+        stars.addEdge(star1, star3, null, (Double) 13.5);
+        stars.addEdge(star1, star4, null, (Double) 14.6);
+        stars.addEdge(star1, star5, null, (Double) 15.3);
+        stars.addEdge(star1, star6, null, (Double) 15.9);
+        stars.addEdge(star1, star7, null, (Double) 16.6);
+        stars.addEdge(star1, star8, null, (Double) 17.1);
+        stars.addEdge(star1, star9, null, (Double) 20.2);
+        stars.addEdge(star2, star3, null, (Double) 17.5);
+        stars.addEdge(star2, star4, null, (Double) 18.4);
+        stars.addEdge(star2, star5, null, (Double) 18.9);
+        stars.addEdge(star2, star6, null, (Double) 19.4);
+        stars.addEdge(star2, star7, null, (Double) 20.0);
+        stars.addEdge(star2, star8, null, (Double) 20.4);
+        stars.addEdge(star2, star9, null, (Double) 23.1);
+        stars.addEdge(star3, star4, null, (Double) 18.9);
+        stars.addEdge(star3, star5, null, (Double) 19.5);
+        stars.addEdge(star3, star6, null, (Double) 19.9);
+        stars.addEdge(star3, star7, null, (Double) 20.6);
+        stars.addEdge(star3, star8, null, (Double) 20.9);
+        stars.addEdge(star3, star9, null, (Double) 23.6);
+        stars.addEdge(star4, star5, null, (Double) 20.3);
+        stars.addEdge(star4, star6, null, (Double) 20.7);
+        stars.addEdge(star4, star7, null, (Double) 21.3);
+        stars.addEdge(star4, star8, null, (Double) 21.7);
+        stars.addEdge(star4, star9, null, (Double) 24.2);
+        stars.addEdge(star5, star6, null, (Double) 21.2);
+        stars.addEdge(star5, star7, null, (Double) 21.8);
+        stars.addEdge(star5, star8, null, (Double) 22.2);
+        stars.addEdge(star5, star9, null, (Double) 24.7);
+        stars.addEdge(star6, star7, null, (Double) 22.2);
+        stars.addEdge(star6, star8, null, (Double) 22.6);
+        stars.addEdge(star6, star9, null, (Double) 25.0);
+        stars.addEdge(star7, star8, null, (Double) 23.1);
+        stars.addEdge(star7, star9, null, (Double) 25.5);
+        stars.addEdge(star8, star9, null, (Double) 25.8);
+        System.out.println(stars.toString());
+        System.out.println(GraphAlgorithms.DFS(stars));
+        GraphAlgorithms.startFinishTimesDFS(stars);
+
+        Graph<Integer, Integer> k = new AdjacencyList<>(false);
+        Vertex<Integer> k1 = new Vertex<>(1);
+        Vertex<Integer> k2 = new Vertex<>(2);
+        Vertex<Integer> k3 = new Vertex<>(3);
+        Vertex<Integer> k4 = new Vertex<>(4);
+        Vertex<Integer> k5 = new Vertex<>(5);
+        k.addEdge(k1, k2, null, (Double) 1.0);
+        k.addEdge(k1, k3, null, (Double) 7.0);
+        k.addEdge(k2, k3, null, (Double) 5.0);
+        k.addEdge(k2, k4, null, (Double) 4.0);
+        k.addEdge(k3, k5, null, (Double) 6.0);
+        k.addEdge(k2, k5, null, (Double) 3.0);
+        k.addEdge(k4, k5, null, (Double) 2.0);
+        k.edges();
 
         /*
         Graph<Integer, String> hex = new AdjacencyList<>(false);
@@ -169,11 +231,6 @@ public class Main {
         hex.addEdge(h21, h24);
         hex.addEdge(h22, h24);
         System.out.println(hex.toString());
-        Graph<Integer, Integer> andromeda = new AdjacencyList<>(false);
-        Graph<Integer, Integer> cass = new AdjacencyList<>(false);
-        Graph<Integer, Integer> ursaMajor = new AdjacencyList<>(false);
-        Graph<Integer, Integer> ursaMinor = new AdjacencyList<>(false);
-        Graph<Integer, Integer> libra = new AdjacencyList<>(false);
         */
     }
 }

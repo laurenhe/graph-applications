@@ -1,23 +1,25 @@
-/* import java.util.*;
+import java.util.*;
 
-public class DisjointSet {
+public class DisjointSet<V> {
 
+    private Map<Vertex<V>, Vertex<V>> p;
+    private Map<Vertex<V>, Integer> rank;
 
-
-    // Constructs an empty disjoint set
-    public DisjointSet(int s) {
-
+    // Constructs a new set
+    public DisjointSet() {
+        this.p = new HashMap<>();
+        this.rank = new HashMap<>();
     }
 
     // Creates a new set whose only member and representative is the given x
     // This single node has an initial rank of zero
-    public static <V> void makeSet(Vertex<V> x) {
-        x.setP(x);
-        x.setRank(0);
+    public void makeSet(Vertex<V> x) {
+        p.put(x, x);
+        rank.put(x, 0);
     }
 
     // Combines the sets that contain x and y into a new set that is the union of these two sets
-    public static <V> void union(Vertex<V> x, Vertex<V> y) {
+    public void union(Vertex<V> x, Vertex<V> y) {
         link(findSet(x), findSet(y));
     }
 
@@ -25,23 +27,22 @@ public class DisjointSet {
     // and its rank will be incremented
     // For roots that have unequal rank, the root with the higher rank
     // will become the parent of the root with the lower rank and all ranks remain the same
-    public static <V> void link(Vertex<V> x, Vertex<V> y) {
-        if (x.getRank() > y.getRank()) {
-            y.setP(x);
+    public void link(Vertex<V> x, Vertex<V> y) {
+        if (rank.get(x) > rank.get(y)) {
+            p.put(y, x);
         } else {
-            x.setP(y);
-            if (x.getRank() == y.getRank()) {
-                y.setRank(y.getRank() + 1);
+            p.put(x, y);
+            if (rank.get(x).equals(rank.get(y))) {
+                rank.put(y, rank.get(y) + 1);   // y.rank += 1;
             }
         }
     }
 
     // Returns pointer to representative of the unique set containing x
-    public static <V> Vertex<V> findSet(Vertex<V> x) {
-        if (x.getP() != x) {
-            x.setP(findSet(x.getP()));
+    public Vertex<V> findSet(Vertex<V> x) {
+        if (p.get(x) != x) {
+            p.put(x, findSet(p.get(x)));        // x.p = findSet(x.p);
         }
-        return x.getP();
+        return p.get(x);
     }
 }
-*/
