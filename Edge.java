@@ -26,12 +26,16 @@ public class Edge<V, E> implements Comparable<Edge<V, E>>{
         return v;
     }
 
+    public Double getWeight() {
+        return weight;
+    }
+
     // Returns a string representation of an edge
     public String toString() {
         if (this.weight == null) {
             return "{source: " + this.u + ", dest: " + this.v + "}";
         } else {
-            return "{source: " + this.u + ", dest: " + this.v + ", label/weight: " + this.weight + "}";
+            return "{source: " + this.u + ", dest: " + this.v + ", weight: " + this.weight + "}";
         }
     }
 
@@ -52,6 +56,13 @@ public class Edge<V, E> implements Comparable<Edge<V, E>>{
     }
 
     public int compareTo(Edge<V, E> e) {
-        return Double.compare(this.weight, e.weight);
+        int cmp = Double.compare(this.weight, e.weight);
+        if (cmp == 0) {
+            cmp = this.u.toString().compareTo(e.u.toString());
+                if (cmp == 0) {
+                    cmp = this.v.toString().compareTo(e.v.toString());
+                }
+        }
+        return cmp;
     }
 }

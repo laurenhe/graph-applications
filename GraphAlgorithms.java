@@ -4,15 +4,15 @@ public class GraphAlgorithms {
 
     private static int time;
 
-    // Performs breadth-first search
-    public static <V, E> void BFS(Graph<V, E> g, Vertex<V> s) {
+    /*
+    public static <V, E> Set<Vertex<V>> BFS(Graph<V, E> g, Vertex<V> s) {
         Queue<Vertex<V>> frontier = new LinkedList<>();
         Set<Vertex<V>> discovered = new HashSet<>();
         frontier.add(s);
         discovered.add(s);
         while (!frontier.isEmpty()) {
-            frontier.remove();
-            for (Edge<V, E> e : g.neighbors(s)) {
+            Vertex<V> u = frontier.remove();
+            for (Edge<V, E> e : g.neighbors(u)) {
                 Vertex<V> v = e.getV();
                 if (!discovered.contains(v)) {
                     frontier.add(v);
@@ -20,12 +20,13 @@ public class GraphAlgorithms {
                 }
             }
         }
-    }
+        return discovered;
+    } */
 
-    // Finds shortest path from source to each vertex in graph
-    public static <V, E> void shortestPath(Graph<V, E> g, Vertex<V> s) {
+    // Performs breadth-first search
+    public static <V, E> Set<Vertex<V>> BFS(Graph<V, E> g, Vertex<V> s) {
         s.setPredecessor(null);
-        s.setDistFromSource((double) 0);
+        s.setDistFromSource(0.0);
         Queue<Vertex<V>> frontier = new LinkedList<>();
         Set<Vertex<V>> discovered = new HashSet<>();
         frontier.add(s);
@@ -42,6 +43,7 @@ public class GraphAlgorithms {
                 }
             }
         }
+        return discovered;
     }
 
     // Prints breadth-first tree
@@ -107,12 +109,8 @@ public class GraphAlgorithms {
         throw new UnsupportedOperationException("not implemented yet");
     }
 
-    /* Implementation of connected-components algorithm - representations of graph and disjoint-set data structure would need
-    * to reference each other
-    * object representing a vertex would contain a pointer to the corresponding disjoint-set object and vice versa */
-
-
     // Performs Kruskal's algorithm on given graph
+    // Returns a set of least-weight edges that form the minimum spanning tree
     public static <V, E> Set<Edge<V, E>> kruskalMST(Graph<V, E> g) {
         Set<Edge<V, E>> A = new HashSet<>();
         DisjointSet<V> s = new DisjointSet<>();
@@ -121,10 +119,35 @@ public class GraphAlgorithms {
         }
         for (Edge<V, E> edge : g.edges()) {
             if (s.findSet(edge.getU()) != s.findSet(edge.getV())) {
+                // Safe edge added to A is least-weight edge connecting two distinct components
                 A.add(edge);
                 s.union(edge.getU(), edge.getV());
             }
         }
         return A;
+    }
+
+    // Performs Prim's algorithm on given graph
+    public static <V, E> Set<Edge<V, E>> primMST(Graph<V, E> g, Vertex<V> r) {
+        Set<Edge<V, E>> B = new HashSet<>();
+        r.setMinWeight(0.0);
+        g.vertices().remove(r);
+        PriorityQueue<Vertex<V>> Q = new PriorityQueue<>(g.vertices());
+        while (!Q.isEmpty()) {
+            Vertex<V> u = Q.remove();
+            for (Edge<V, E> e : g.neighbors(u)) {                                       // for each v in G.Adj[u]
+                if (Q.contains(e.getV()) && e.getWeight() < e.getV().getMinWeight()) {  // if v in Q and w(u,v) < v.key
+                    e.getV().setPredecessor(u);                                         // v.pi = u
+                    e.getV().setMinWeight(e.getWeight());                               // v.key = w(u,v)
+                    System.out.println(e);
+                }
+            }
+        }
+        for (Edge<V, E> e : g.edges()) {
+            if (e.getWeight().equals(e.getV().getMinWeight())) {
+                B.add(e);
+            }
+        }
+        return B;
     }
 }

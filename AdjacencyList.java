@@ -13,12 +13,12 @@ public class AdjacencyList<V, E> implements Graph<V, E> {
     }
 
     // Returns an iterable collection containing all the vertices of the given graph
-    public Iterable<Vertex<V>> vertices() {
+    public Set<Vertex<V>> vertices() {
         return new HashSet<>(adj.keySet());
     }
 
-    // Returns a set containing all the edges of the given graph sorted in ascending order by weight
-    public Set<Edge<V, E>> edges() {
+    // Returns an iterable collection containing all the edges of the given graph in ascending order by weight
+    public Iterable<Edge<V, E>> edges() {
         Set<Edge<V, E>> e = new TreeSet<>();
         for (List<Edge<V, E>> value : adj.values()) {
             e.addAll(value);
@@ -36,25 +36,28 @@ public class AdjacencyList<V, E> implements Graph<V, E> {
         if (!adj.containsKey(source)) {
             addVertex(source);
         }
-        adj.get(source).add(new Edge<>(source, destination, null, null));
+        adj.get(source).add(new Edge<>(source, destination, label, weight));
         if (!adj.containsKey(destination)) {
             addVertex(destination);
         }
         if (!isDirected) {
-            adj.get(destination).add(new Edge<>(destination, source, null, null));
+            adj.get(destination).add(new Edge<>(destination, source, label, weight));
         }
     }
 
     // Adds given vertex to graph
-    public void addVertex(Vertex<V> vertex){
-        if (!adj.containsKey(vertex)) {
-            adj.put(vertex, new LinkedList<>());
+    public void addVertex(Vertex<V> v){
+        if (!adj.containsKey(v)) {
+            adj.put(v, new LinkedList<>());
         }
     }
 
     // Removes given vertex from graph
-    public void removeVertex(Vertex<V> vertex) {
-        adj.remove(vertex);
+    public void removeVertex(Vertex<V> v) {
+        adj.remove(v);
+        if (!isDirected) {
+            adj.values().remove(v);
+        }
     }
 
     // Removes given edge from graph
@@ -77,7 +80,7 @@ public class AdjacencyList<V, E> implements Graph<V, E> {
         return adj.get(source).contains(destination);
     }
 
-    // Returns a string representation of the graph/adjacency list
+    // Returns a string representation of the adjacency list
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Vertex<V> key : adj.keySet()) {
