@@ -127,7 +127,8 @@ public class GraphAlgorithms {
         return A;
     }
 
-    // Performs Prim's algorithm on given graph
+    // Performs Prim's algorithm on given graph and takes as an additional parameter a start vertex
+    // Returns a set of least-weight edges that form the minimum spanning tree
     public static <V, E> Set<Edge<V, E>> primMST(Graph<V, E> g, Vertex<V> r) {
         Set<Edge<V, E>> B = new HashSet<>();
         r.setMinWeight(0.0);
