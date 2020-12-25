@@ -1,92 +1,54 @@
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Main {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        // starter
         Graph<Integer, String> g = new AdjacencyList<>(false);
-        Vertex<Integer> start = new Vertex<>(1);
-        Vertex<Integer> two = new Vertex<>(2);
-        Vertex<Integer> three = new Vertex<>(3);
-        Vertex<Integer> four = new Vertex<>(4);
-        Vertex<Integer> five = new Vertex<>(5);
-        Vertex<Integer> six = new Vertex<>(6);
-        Vertex<Integer> seven = new Vertex<>(7);
-        Vertex<Integer> eight = new Vertex<>(8);
-        Vertex<Integer> nine = new Vertex<>(9);
-        Vertex<Integer> ten = new Vertex<>(10);
-        g.addEdge(start, two, null, null);
-        g.addEdge(start, three, null, null);
-        g.addEdge(two, six, null, null);
-        g.addEdge(three, four, null, null);
-        g.addEdge(three, six, null, null);
-        g.addEdge(five, six, null, null);
-        g.addEdge(six, seven, null, null);
-        g.addEdge(seven, eight, null, null);
-        g.addEdge(seven, nine, null, null);
-        g.addEdge(nine, ten, null, null);
+        Scanner scan = new Scanner(new File("starter.txt"));
+        String firstLine = scan.nextLine();
+        String[] vs = firstLine.split(" ");
+        ArrayList<Vertex<Integer>> data = new ArrayList<>();
+        for (int i = 0; i < vs.length; i++) {
+            data.add(new Vertex<>(Integer.parseInt(vs[i])));
+        }
+        while (scan.hasNextLine()) {
+            String edges = scan.nextLine();
+            String[] es = edges.split(", ");
+            Integer u = Integer.parseInt(es[0]);
+            Integer v = Integer.parseInt(es[1]);
+            g.addEdge(data.get(u - 1), data.get(v - 1), null, null);
+        }
         System.out.println(g.toString());
-        GraphAlgorithms.BFS(g, start);
-        System.out.println(ten.getDistFromSource());
-        GraphAlgorithms.predecessorSubgraphBFS(start, ten);
+        GraphAlgorithms.BFS(g, data.get(0));
+        System.out.println(data.get(9).getDistFromSource());
+        GraphAlgorithms.predecessorSubgraphBFS(data.get(0), data.get(9));
         System.out.println();
         System.out.println(GraphAlgorithms.DFS(g));
         GraphAlgorithms.startFinishTimesDFS(g);
+        System.out.println();
 
+        // graphene
         Graph<Integer, String> hex = new AdjacencyList<>(false);
-        Vertex<Integer> h1 = new Vertex<>(1);
-        Vertex<Integer> h2 = new Vertex<>(2);
-        Vertex<Integer> h3 = new Vertex<>(3);
-        Vertex<Integer> h4 = new Vertex<>(4);
-        Vertex<Integer> h5 = new Vertex<>(5);
-        Vertex<Integer> h6 = new Vertex<>(6);
-        Vertex<Integer> h7 = new Vertex<>(7);
-        Vertex<Integer> h8 = new Vertex<>(8);
-        Vertex<Integer> h9 = new Vertex<>(9);
-        Vertex<Integer> h10 = new Vertex<>(10);
-        Vertex<Integer> h11 = new Vertex<>(11);
-        Vertex<Integer> h12 = new Vertex<>(12);
-        Vertex<Integer> h13 = new Vertex<>(13);
-        Vertex<Integer> h14 = new Vertex<>(14);
-        Vertex<Integer> h15 = new Vertex<>(15);
-        Vertex<Integer> h16 = new Vertex<>(16);
-        Vertex<Integer> h17 = new Vertex<>(17);
-        Vertex<Integer> h18 = new Vertex<>(18);
-        Vertex<Integer> h19 = new Vertex<>(19);
-        Vertex<Integer> h20 = new Vertex<>(20);
-        Vertex<Integer> h21 = new Vertex<>(21);
-        Vertex<Integer> h22 = new Vertex<>(22);
-        Vertex<Integer> h23 = new Vertex<>(23);
-        Vertex<Integer> h24 = new Vertex<>(24);
-        hex.addEdge(h1, h3, null, null);
-        hex.addEdge(h1, h4, null, null);
-        hex.addEdge(h2, h4, null, null);
-        hex.addEdge(h2, h5, null, null);
-        hex.addEdge(h3, h6, null, null);
-        hex.addEdge(h4, h2, null, null);
-        hex.addEdge(h5, h8, null, null);
-        hex.addEdge(h6, h9, null, null);
-        hex.addEdge(h6, h10, null, null);
-        hex.addEdge(h7, h10, null, null);
-        hex.addEdge(h7, h11, null, null);
-        hex.addEdge(h8, h11, null, null);
-        hex.addEdge(h8, h12, null, null);
-        hex.addEdge(h9, h13, null, null);
-        hex.addEdge(h10, h14, null, null);
-        hex.addEdge(h11, h15, null, null);
-        hex.addEdge(h12, h16, null, null);
-        hex.addEdge(h13, h17, null, null);
-        hex.addEdge(h14, h17, null, null);
-        hex.addEdge(h14, h18, null, null);
-        hex.addEdge(h15, h18, null, null);
-        hex.addEdge(h15, h19, null, null);
-        hex.addEdge(h16, h19, null, null);
-        hex.addEdge(h17, h20, null, null);
-        hex.addEdge(h18, h21, null, null);
-        hex.addEdge(h19, h22, null, null);
-        hex.addEdge(h20, h23, null, null);
-        hex.addEdge(h21, h23, null, null);
-        hex.addEdge(h21, h24, null, null);
-        hex.addEdge(h22, h24, null, null);
+        scan = new Scanner(new File("hex.txt"));
+        String first = scan.nextLine();
+        String[] vertices = first.split(" ");
+        ArrayList<Vertex<Integer>> a = new ArrayList<>();
+        for (int i = 0; i < vertices.length; i++) {
+            a.add(new Vertex<>(Integer.parseInt(vertices[i])));
+        }
+        while (scan.hasNextLine()) {
+            String edges = scan.nextLine();
+            String[] es = edges.split(", ");
+            Integer u = Integer.parseInt(es[0]);
+            Integer v = Integer.parseInt(es[1]);
+            hex.addEdge(a.get(u - 1), a.get(v - 1), null, null);
+        }
         System.out.println(hex.toString());
 
+        // carbon cycle
         Graph<String, String> cc = new AdjacencyList<>(true);
         Vertex<String> c1 = new Vertex<>("atmospheric CO2");
         Vertex<String> c2 = new Vertex<>("fossil fuels");
@@ -118,6 +80,7 @@ public class Main {
         System.out.println(GraphAlgorithms.DFS(cc));
         GraphAlgorithms.startFinishTimesDFS(cc);
 
+        // salmon life cycle
         Graph<String, String> s = new AdjacencyList<>(true);
         Vertex<String> s1 = new Vertex<>("fertilized eggs");
         Vertex<String> s2 = new Vertex<>("alevins");
@@ -159,6 +122,7 @@ public class Main {
         System.out.println(GraphAlgorithms.DFS(s));
         GraphAlgorithms.startFinishTimesDFS(s);
 
+        // closest stars
         Graph<String, String> stars = new AdjacencyList<>(false);
         Vertex<String> star0 = new Vertex<>("Sol");
         Vertex<String> star1 = new Vertex<>("Alpha Centauri B");
