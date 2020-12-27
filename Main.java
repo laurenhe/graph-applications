@@ -6,76 +6,31 @@ public class Main {
     
     public static void main(String[] args) throws FileNotFoundException {
         // starter
-        Graph<Integer, String> g = new AdjacencyList<>(false);
-        Scanner scan = new Scanner(new File("starter.txt"));
-        String firstLine = scan.nextLine();
-        String[] vs = firstLine.split(" ");
-        ArrayList<Vertex<Integer>> data = new ArrayList<>();
-        for (int i = 0; i < vs.length; i++) {
-            data.add(new Vertex<>(Integer.parseInt(vs[i])));
-        }
-        while (scan.hasNextLine()) {
-            String edges = scan.nextLine();
-            String[] es = edges.split(", ");
-            Integer u = Integer.parseInt(es[0]);
-            Integer v = Integer.parseInt(es[1]);
-            g.addEdge(data.get(u - 1), data.get(v - 1), null, null);
-        }
-        System.out.println(g.toString());
-        GraphAlgorithms.BFS(g, data.get(0));
-        System.out.println(data.get(9).getDistFromSource());
-        GraphAlgorithms.predecessorSubgraphBFS(data.get(0), data.get(9));
+        Graph<Integer, Integer> starter = new AdjacencyList<>(false);
+        File starterFile = new File("starter.txt");
+        Map<Integer, Vertex<Integer>> starterData = new HashMap<>();
+        GraphBuilder.unweightedIntGraph(starter, starterFile, starterData);
+        System.out.println(starter.toString());
+        GraphAlgorithms.BFS(starter, starterData.get(1));
+        System.out.println(starterData.get(10).getDistFromSource());
+        GraphAlgorithms.predecessorSubgraphBFS(starterData.get(1), starterData.get(10));
         System.out.println();
-        System.out.println(GraphAlgorithms.DFS(g));
-        GraphAlgorithms.startFinishTimesDFS(g);
+        System.out.println(GraphAlgorithms.DFS(starter));
+        GraphAlgorithms.startFinishTimesDFS(starter);
         System.out.println();
 
         // graphene
-        Graph<Integer, String> hex = new AdjacencyList<>(false);
-        scan = new Scanner(new File("hex.txt"));
-        String first = scan.nextLine();
-        String[] vertices = first.split(" ");
-        ArrayList<Vertex<Integer>> a = new ArrayList<>();
-        for (int i = 0; i < vertices.length; i++) {
-            a.add(new Vertex<>(Integer.parseInt(vertices[i])));
-        }
-        while (scan.hasNextLine()) {
-            String edges = scan.nextLine();
-            String[] es = edges.split(", ");
-            Integer u = Integer.parseInt(es[0]);
-            Integer v = Integer.parseInt(es[1]);
-            hex.addEdge(a.get(u - 1), a.get(v - 1), null, null);
-        }
+        Graph<Integer, Integer> hex = new AdjacencyList<>(false);
+        File hexFile = new File("hex.txt");
+        Map<Integer, Vertex<Integer>> hexData = new HashMap<>();
+        GraphBuilder.unweightedIntGraph(hex, hexFile, hexData);
         System.out.println(hex.toString());
 
         // carbon cycle
         Graph<String, String> cc = new AdjacencyList<>(true);
-        Vertex<String> c1 = new Vertex<>("atmospheric CO2");
-        Vertex<String> c2 = new Vertex<>("fossil fuels");
-        Vertex<String> c3 = new Vertex<>("land plants");
-        Vertex<String> c4 = new Vertex<>("animals and microorganisms");
-        Vertex<String> c5 = new Vertex<>("dissolved CO2");
-        Vertex<String> c6 = new Vertex<>("humus");
-        Vertex<String> c7 = new Vertex<>("aquatic plants and algae");
-        Vertex<String> c8 = new Vertex<>("aquatic animals");
-        Vertex<String> c9 = new Vertex<>("earth's crust");
-        Vertex<String> c10 = new Vertex<>("death and mineralization in sediments");
-        cc.addEdge(c2, c1, null, null);
-        cc.addEdge(c3, c1, null, null);
-        cc.addEdge(c4, c1, null, null);
-        cc.addEdge(c1, c3, null, null);
-        cc.addEdge(c1, c5, null, null);
-        cc.addEdge(c3, c4, null, null);
-        cc.addEdge(c3, c6, null, null);
-        cc.addEdge(c6, c4, null, null);
-        cc.addEdge(c6, c2, null, null);
-        cc.addEdge(c5, c7, null, null);
-        cc.addEdge(c7, c8, null, null);
-        cc.addEdge(c8, c5, null, null);
-        cc.addEdge(c7, c10, null, null);
-        cc.addEdge(c8, c10, null, null);
-        cc.addEdge(c10, c9, null, null);
-        cc.addEdge(c9, c6, null, null);
+        File ccFile = new File("carbon-cycle.txt");
+        Map<String, Vertex<String>> ccData = new HashMap<>();
+        GraphBuilder.unweightedStrGraph(cc, ccFile, ccData);
         System.out.println(cc.toString());
         System.out.println(GraphAlgorithms.DFS(cc));
         GraphAlgorithms.startFinishTimesDFS(cc);
