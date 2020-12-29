@@ -44,8 +44,6 @@ public class Edge<V, E> implements Comparable<Edge<V, E>>{
             return true;
         } else if (this.getClass() != o.getClass()) {
             return false;
-        } else if (!(o instanceof Edge<?, ?>)) {
-            return false;
         }
         Edge<?, ?> other = (Edge<?, ?>) o;
         return this.u == other.u && this.v == other.v && this.label == other.label && this.weight.equals(other.weight);

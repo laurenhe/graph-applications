@@ -68,8 +68,6 @@ public class Vertex<V> implements Comparable<Vertex<V>>{
             return true;
         } else if (this.getClass() != o.getClass()) {   // Compares the class of given object and the class of this object
             return false;
-        } else if (!(o instanceof Vertex<?>)) {
-            return false;
         }
         Vertex<?> other = (Vertex<?>) o;    // Compares the state of given object and the state of this object
         return this.label == other.label;

@@ -8,17 +8,17 @@ public class GraphBuilder {
         Scanner scan = new Scanner(file);
         String firstLine = scan.nextLine();
         String[] vs = firstLine.split(" ");
-        for (int i = 0; i < vs.length; i++) {
-            Integer vertexLabel = Integer.parseInt(vs[i]);
+        for (String v : vs) {
+            Integer vertexLabel = Integer.parseInt(v);
             if (!data.containsKey(vertexLabel)) {
                 data.put(vertexLabel, new Vertex<>(vertexLabel));
             }
         }
         while (scan.hasNextLine()) {
-            String edges = scan.nextLine();
-            String[] es = edges.split(", ");
-            Integer u = Integer.parseInt(es[0]);
-            Integer v = Integer.parseInt(es[1]);
+            String edge = scan.nextLine();
+            String[] e = edge.split(", ");
+            Integer u = Integer.parseInt(e[0]);
+            Integer v = Integer.parseInt(e[1]);
             g.addEdge(data.get(u), data.get(v), null, null);
         }
     }
@@ -33,9 +33,9 @@ public class GraphBuilder {
             }
         }
         while (scan.hasNextLine()) {
-            String edges = scan.nextLine();
-            String[] es = edges.split(", ");
-            g.addEdge(data.get(es[0]), data.get(es[1]), null, null);
+            String edge = scan.nextLine();
+            String[] e = edge.split(", ");
+            g.addEdge(data.get(e[0]), data.get(e[1]), null, null);
         }
     }
 }
