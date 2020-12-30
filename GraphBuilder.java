@@ -68,11 +68,14 @@ public class GraphBuilder {
                 data.put(v, new Vertex<>(v));
             }
         }
+
         while (scan.hasNextLine()) {
             String edge = scan.nextLine();
             String[] e = edge.split(", ");
+            String u = e[0];
+            String v = e[1];
             Double w = Double.parseDouble(e[2]);
-            g.addEdge(data.get(e[0]), data.get(e[1]), null, w);
+            g.addEdge(data.get(u), data.get(v), null, w);
         }
     }
 }

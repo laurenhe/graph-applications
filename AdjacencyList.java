@@ -83,9 +83,13 @@ public class AdjacencyList<V, E> implements Graph<V, E> {
     // Returns a string representation of the adjacency list
     public String toString() {
         StringBuilder s = new StringBuilder();
-        for (Vertex<V> key : adj.keySet()) {
-            s.append(key.toString()).append(": ").append(adj.get(key).toString());
-            s.append("\n");
+        String newline = "";
+        for (Map.Entry<Vertex<V>, List<Edge<V, E>>> entry : adj.entrySet()) {
+            s.append(newline)
+             .append(entry.getKey())
+             .append(": ")
+             .append(entry.getValue());
+            newline = "\n";
         }
         return (s.toString());
     }
