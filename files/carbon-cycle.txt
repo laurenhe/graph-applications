@@ -1,0 +1,17 @@
+atmospheric CO2, fossil fuels, land plants, animals and microorganisms, dissolved CO2, humus, aquatic plants and algae, aquatic animals, earth's crust, death and mineralization in sediments
+fossil fuels, atmospheric CO2
+land plants, atmospheric CO2
+animals and microorganisms, atmospheric CO2
+atmospheric CO2, land plants
+atmospheric CO2, dissolved CO2
+land plants, animals and microorganisms
+land plants, humus
+humus, animals and microorganisms
+humus, fossil fuels
+dissolved CO2, aquatic plants and algae
+aquatic plants and algae, aquatic animals
+aquatic animals, dissolved CO2
+aquatic plants and algae, death and mineralization in sediments
+aquatic animals, death and mineralization in sediments
+death and mineralization in sediments, earth's crust
+earth's crust, humus
