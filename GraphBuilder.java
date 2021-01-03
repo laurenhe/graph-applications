@@ -68,7 +68,6 @@ public class GraphBuilder {
                 data.put(v, new Vertex<>(v));
             }
         }
-
         while (scan.hasNextLine()) {
             String edge = scan.nextLine();
             String[] e = edge.split(", ");

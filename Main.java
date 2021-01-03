@@ -70,37 +70,10 @@ public class Main {
         File mstFile = new File("files/mst.txt");
         Map<String, Vertex<String>> mstData = new HashMap<>();
         GraphBuilder.weightedStrGraph(mst, mstFile, mstData);
-        //System.out.println(mst.edges());
-        //System.out.println(GraphAlgorithms.kruskalMST(mst));
-        //System.out.println(GraphAlgorithms.primMST(mst, mstData.get(1)));
-
-        Graph<String, Integer> t = new AdjacencyList<>(false);
-        Vertex<String> t1 = new Vertex<>("a");
-        Vertex<String> t2 = new Vertex<>("b");
-        Vertex<String> t3 = new Vertex<>("c");
-        Vertex<String> t4 = new Vertex<>("d");
-        Vertex<String> t5 = new Vertex<>("e");
-        Vertex<String> t6 = new Vertex<>("f");
-        Vertex<String> t7 = new Vertex<>("g");
-        Vertex<String> t8 = new Vertex<>("h");
-        Vertex<String> t9 = new Vertex<>("i");
-        t.addEdge(t1, t2, null, 4.0);
-        t.addEdge(t1, t8, null, 8.0);
-        t.addEdge(t2, t3, null, 8.0);
-        t.addEdge(t2, t8, null, 11.0);
-        t.addEdge(t8, t9, null, 7.0);
-        t.addEdge(t8, t7, null, 1.0);
-        t.addEdge(t9, t7, null, 6.0);
-        t.addEdge(t9, t3, null, 2.0);
-        t.addEdge(t3, t4, null, 7.0);
-        t.addEdge(t3, t6, null, 4.0);
-        t.addEdge(t7, t6, null, 2.0);
-        t.addEdge(t4, t6, null, 14.0);
-        t.addEdge(t4, t5, null, 9.0);
-        t.addEdge(t6, t5, null, 10.0);
         System.out.println(mst.edges());
         System.out.println(GraphAlgorithms.kruskalMST(mst));
-        System.out.println(GraphAlgorithms.primMST(mst, mstData.get(1)));
+        System.out.println(GraphAlgorithms.primMST(mst, mstData.get("a")));
+        System.out.println();
     }
 }
 

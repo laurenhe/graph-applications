@@ -4,25 +4,6 @@ public class GraphAlgorithms {
 
     private static int time;
 
-    /*
-    public static <V, E> Set<Vertex<V>> BFS(Graph<V, E> g, Vertex<V> s) {
-        Queue<Vertex<V>> frontier = new LinkedList<>();
-        Set<Vertex<V>> discovered = new HashSet<>();
-        frontier.add(s);
-        discovered.add(s);
-        while (!frontier.isEmpty()) {
-            Vertex<V> u = frontier.remove();
-            for (Edge<V, E> e : g.neighbors(u)) {
-                Vertex<V> v = e.getV();
-                if (!discovered.contains(v)) {
-                    frontier.add(v);
-                    discovered.add(v);
-                }
-            }
-        }
-        return discovered;
-    } */
-
     // Performs breadth-first search
     public static <V, E> Set<Vertex<V>> BFS(Graph<V, E> g, Vertex<V> s) {
         s.setPredecessor(null);
